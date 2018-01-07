@@ -1,0 +1,21 @@
+web:
+  image: patriceckhart/docker-apache-php5-ssh-contao3:latest
+  ports:
+    - '80:80'
+    - '22:22'
+  links:
+    - db:db
+  volumes:
+    - './web/:/var/www/html'
+
+db:
+  image: mariadb:latest
+  expose:
+    - 3306
+  environment:
+    MYSQL_DATABASE: 'db'
+    MYSQL_USER: 'admin'
+    MYSQL_PASSWORD: 'pass'
+    MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+  ports:
+    - '3306:3306'
